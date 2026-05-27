@@ -1,0 +1,18 @@
+<div [class]="wrapperClasses">
+  <label *ngIf="label()" class="text-sm font-medium text-gray-700">
+    {{ label() }}
+  </label>
+
+  <input
+    [type]="type()"
+    [class]="inputClasses"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [value]="value"
+    (input)="handleInput($event)"
+    (blur)="onTouched()"
+  />
+
+  <span *ngIf="error()" class="text-xs text-red-500">{{ error() }}</span>
+  <span *ngIf="hint() && !error()" class="text-xs text-gray-400">{{ hint() }}</span>
+</div>
