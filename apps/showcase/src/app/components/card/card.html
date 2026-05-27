@@ -1,0 +1,18 @@
+<div [class]="classes">
+  @if (title() || subtitle()) {
+    <div [class]="headerClasses">
+      @if (title()) {
+        <h3 [class]="titleClasses">{{ title() }}</h3>
+      }
+      @if (subtitle()) {
+        <p [class]="subtitleClasses">{{ subtitle() }}</p>
+      }
+    </div>
+  }
+
+  <ng-content></ng-content>
+
+  @if (footer()) {
+    <div [class]="footerClasses">{{ footer() }}</div>
+  }
+</div>
