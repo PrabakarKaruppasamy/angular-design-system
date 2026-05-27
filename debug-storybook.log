@@ -1,0 +1,30 @@
+[09:13:43.070] [INFO] storybook v10.4.1
+[09:13:43.657] [DEBUG] Getting package.json info for C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/package.json...
+[09:13:43.709] [WARN] Could not resolve addon "@storybook/addon-essentials", skipping. Is it installed?
+[09:13:44.358] [WARN] Could not resolve addon "@storybook/addon-essentials", skipping. Is it installed?
+[09:13:44.558] [INFO] Starting...
+[09:13:44.751] [DEBUG] Starting preview..
+[09:13:44.765] [INFO] Using implicit CSS loaders
+[09:13:45.644] [ERROR] Failed to build the preview
+[09:13:45.646] [ERROR] [38;2;241;97;97mSB_FRAMEWORK_ANGULAR_0001 (AngularLegacyBuildOptionsError): Your Storybook startup script uses a solution that is not supported anymore.
+You must use Angular builder to have an explicit configuration on the project used in angular.json.
+
+Please run 'npx storybook automigrate' to automatically fix your config.
+
+More info: 
+	- https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#angular-drop-support-for-calling-storybook-directly
+	- https://github.com/storybookjs/storybook/tree/next/code/frameworks/angular#how-do-i-migrate-to-an-angular-storybook-builder
+[39m
+    at checkForLegacyBuildOptions (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/@storybook/angular/dist/server/framework-preset-angular-cli.js:159:11)
+    at Object.webpackFinal (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/@storybook/angular/dist/server/framework-preset-angular-cli.js:93:3)
+    at async Object.webpack (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/@storybook/builder-webpack5/dist/presets/custom-webpack-preset.js:282:28)
+    at async starter (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/@storybook/builder-webpack5/dist/index.js:811:16)
+    at async Module.start (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/@storybook/builder-webpack5/dist/index.js:915:14)
+    at async storybookDevServer (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/storybook/dist/core-server/index.js:18917:158)
+    at async buildOrThrow (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/storybook/dist/core-server/index.js:8205:12)
+    at async buildDevStandalone (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/storybook/dist/core-server/index.js:19478:41)
+    at async withTelemetry (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/storybook/dist/_node-chunks/chunk-CUZMMOHY.js:655:12)
+    at async dev (file:///C:/Workspace/Projects_To_Earn/Github_Projects/angular-design-system/node_modules/storybook/dist/bin/core.js:2736:3)
+[09:13:45.651] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[09:13:45.654] [WARN] Could not resolve addon "@storybook/addon-essentials", skipping. Is it installed?
