@@ -1,101 +1,189 @@
-# AngularDesignSystem
+<div align="center">
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# Angular Design System
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+### A production-quality Angular 21 component library built with Storybook v10, Tailwind CSS, and Nx monorepo
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+[![Live Storybook](https://img.shields.io/badge/Storybook-Live_Demo-FF4785?style=for-the-badge&logo=storybook&logoColor=white)](https://prabakarkaruppasamy.github.io/angular-design-system/)
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![Storybook](https://img.shields.io/badge/Storybook-v10-FF4785?style=for-the-badge&logo=storybook&logoColor=white)](https://storybook.js.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Nx](https://img.shields.io/badge/Nx-Monorepo-143055?style=for-the-badge&logo=nx&logoColor=white)](https://nx.dev)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/PrabakarKaruppasamy/angular-design-system/deploy-storybook.yml?style=for-the-badge&label=Deploy&logo=githubactions&logoColor=white)](https://github.com/PrabakarKaruppasamy/angular-design-system/actions)
 
-## Run tasks
+**[🚀 View Live Storybook →](https://prabakarkaruppasamy.github.io/angular-design-system/)**
 
-To run the dev server for your app, use:
+</div>
 
-```sh
+---
+
+## 📦 Components
+
+| Component | Description | Status |
+|---|---|---|
+| **Button** | 4 variants (primary, secondary, danger, ghost) · 3 sizes · disabled state | ✅ Live |
+| **Input** | Text, email, password, number · label · hint · error · WCAG accessible | ✅ Live |
+| **Badge** | 6 colour variants · dot indicator · pill or squared · 2 sizes | ✅ Live |
+| **Card** | 4 variants (default, outlined, elevated, flat) · header · footer · content projection | ✅ Live |
+| **Modal** | 4 sizes · backdrop click · Escape key · ARIA roles · keyboard accessible | ✅ Live |
+| **Toast** | Success, warning, danger, info · auto-dismiss · position control | 🚧 In Progress |
+| **Table** | Sortable columns · pagination · row selection · loading state | 🚧 In Progress |
+| **Select** | Single/multi select · search · grouped options · WCAG accessible | 🚧 In Progress |
+
+---
+
+## 🏗️ Architecture
+
+```
+angular-design-system/
+├── apps/
+│   └── showcase/                  # Storybook host application
+│       ├── src/
+│       │   └── app/
+│       │       └── components/    # All design system components
+│       │           ├── button/
+│       │           ├── input/
+│       │           ├── badge/
+│       │           ├── card/
+│       │           └── modal/
+│       └── .storybook/            # Storybook configuration
+└── .github/
+    └── workflows/
+        └── deploy-storybook.yml   # CI/CD → GitHub Pages
+```
+
+**Key decisions:**
+- **Angular 21 Standalone APIs** — no NgModules, tree-shakeable by default
+- **Angular Signals** — reactive inputs using `input()` signal primitives
+- **Tailwind CSS v3** — utility-first styling, consistent design tokens
+- **Nx monorepo** — scalable workspace ready for multiple libraries
+- **WCAG 2.1 accessibility** — keyboard navigation, ARIA labels, focus management on every component
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js v22+
+- npm v10+
+
+### Installation
+
+```bash
+git clone https://github.com/PrabakarKaruppasamy/angular-design-system.git
+cd angular-design-system
+npm install --legacy-peer-deps
+```
+
+### Run Storybook locally
+
+```bash
+npx nx run showcase:storybook
+```
+
+Open [http://localhost:4400](http://localhost:4400)
+
+### Build Storybook
+
+```bash
+npx nx run showcase:build-storybook
+```
+
+### Run the app
+
+```bash
 npx nx serve showcase
 ```
 
-To create a production bundle:
+### Run tests
 
-```sh
-npx nx build showcase
+```bash
+npx nx run showcase:test
 ```
 
-To see all available targets to run for a project, run:
+---
 
-```sh
-npx nx show project showcase
+## ✅ Accessibility
+
+Every component is built to **WCAG 2.1 AA** standards:
+
+- ✅ All form inputs have associated `<label>` elements via `for` + `id`
+- ✅ Modal implements `role="dialog"`, `aria-modal`, `aria-label`
+- ✅ Modal closes on **Escape key** press
+- ✅ Backdrop click and keyboard events paired on interactive elements
+- ✅ Error messages use `role="alert"` for screen reader announcements
+- ✅ All buttons have descriptive `aria-label` attributes
+- ✅ Focus management on interactive components
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Angular 21 (Standalone APIs) |
+| Reactivity | Angular Signals (`input()`, `output()`, `signal()`) |
+| Styling | Tailwind CSS v3 |
+| Documentation | Storybook v10 |
+| Monorepo | Nx |
+| Testing | Jest |
+| CI/CD | GitHub Actions → GitHub Pages |
+| Language | TypeScript |
+
+---
+
+## 📖 Component API Example
+
+```typescript
+// Button component usage
+<app-button
+  variant="primary"   // 'primary' | 'secondary' | 'danger' | 'ghost'
+  size="md"           // 'sm' | 'md' | 'lg'
+  label="Submit"
+  [disabled]="false">
+</app-button>
+
+// Input component usage
+<app-input
+  label="Email address"
+  placeholder="Enter your email"
+  type="email"
+  hint="We'll never share your email"
+  error="Invalid email format">
+</app-input>
+
+// Modal component usage
+<app-modal
+  [open]="isOpen()"
+  title="Confirm Action"
+  size="md"
+  (closed)="isOpen.set(false)">
+  <p>Modal content here</p>
+  <div slot="footer">
+    <app-button label="Confirm" variant="primary"></app-button>
+  </div>
+</app-modal>
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 🚢 Deployment
 
-## Add new projects
+Storybook auto-deploys to GitHub Pages on every push to `main` via GitHub Actions.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+**Live URL:** [https://prabakarkaruppasamy.github.io/angular-design-system/](https://prabakarkaruppasamy.github.io/angular-design-system/)
 
-Use the plugin's generator to create new projects.
+---
 
-To generate a new application, use:
+## 👤 Author
 
-```sh
-npx nx g @nx/angular:app demo
-```
+**Prabakar Karuppasamy** — Frontend Architect · Technical Lead · 14+ years in enterprise web engineering
 
-To generate a new library, use:
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/prabakarsamy)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github&logoColor=white)](https://github.com/PrabakarKaruppasamy)
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+---
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 📄 License
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+MIT License — free to use, modify, and distribute.
