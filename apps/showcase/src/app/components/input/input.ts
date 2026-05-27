@@ -27,6 +27,7 @@ export class InputComponent implements ControlValueAccessor {
   hint = input<string>('');
   error = input<string>('');
   disabled = input<boolean>(false);
+  id = input<string>('input-' + Math.random().toString(36).slice(2, 7));
 
   value = '';
   onChange = (_: any) => {};

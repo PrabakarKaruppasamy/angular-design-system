@@ -1,9 +1,14 @@
 <div [class]="wrapperClasses">
-  <label *ngIf="label()" class="text-sm font-medium text-gray-700">
-    {{ label() }}
-  </label>
+  @if (label()) {
+    <label
+      [for]="id()"
+      class="text-sm font-medium text-gray-700">
+      {{ label() }}
+    </label>
+  }
 
   <input
+    [id]="id()"
     [type]="type()"
     [class]="inputClasses"
     [placeholder]="placeholder()"
@@ -13,6 +18,9 @@
     (blur)="onTouched()"
   />
 
-  <span *ngIf="error()" class="text-xs text-red-500">{{ error() }}</span>
-  <span *ngIf="hint() && !error()" class="text-xs text-gray-400">{{ hint() }}</span>
+  @if (error()) {
+    <span class="text-xs text-red-500" role="alert">{{ error() }}</span>
+  } @else if (hint()) {
+    <span class="text-xs text-gray-400">{{ hint() }}</span>
+  }
 </div>
