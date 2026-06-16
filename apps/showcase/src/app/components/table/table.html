@@ -1,0 +1,78 @@
+<div class="w-full overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+
+  @if (loading()) {
+    <div class="flex items-center justify-center py-16 text-gray-400">
+      <svg class="animate-spin w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+      </svg>
+      <span class="text-sm">Loading...</span>
+    </div>
+  } @else {
+    <table [class]="tableClasses">
+
+      <!-- Header -->
+      <thead>
+        <tr>
+          @if (selectable()) {
+            <th class="px-4 py-3 w-10 bg-gray-50 border-b border-gray-200"></th>
+          }
+          @for (col of columns(); track col.key) {
+            <th
+              [class]="thClasses"
+              [style.width]="col.width || 'auto'"
+              [attr.tabindex]="col.sortable ? 0 : null"
+              (click)="onSort(col)"
+              (keydown)="onKeydownSort($event, col)">
+              <span class="flex items-center gap-1">
+                {{ col.label }}
+                @if (col.sortable) {
+                  <span class="text-gray-400 text-xs">{{ getSortIcon(col) }}</span>
+                }
+              </span>
+            </th>
+          }
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody>
+        @if (sortedData().length === 0) {
+          <tr>
+            <td
+              [attr.colspan]="columns().length + (selectable() ? 1 : 0)"
+              class="px-4 py-12 text-center text-gray-400 text-sm">
+              {{ emptyMessage() }}
+            </td>
+          </tr>
+        } @else {
+          @for (row of sortedData(); track $index) {
+            <tr
+              [class]="getTrClasses($index)"
+              (click)="selectable() && toggleRow($index, row)"
+              (keydown.enter)="selectable() && toggleRow($index, row)"
+              [attr.tabindex]="selectable() ? 0 : null"
+              [attr.aria-selected]="selectable() ? isSelected($index) : null">
+              @if (selectable()) {
+                <td class="px-4 py-3">
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected($index)"
+                    (click)="$event.stopPropagation()"
+                    (change)="toggleRow($index, row)"
+                    class="rounded border-gray-300 text-blue-600"
+                    [attr.aria-label]="'Select row ' + ($index + 1)"/>
+                </td>
+              }
+              @for (col of columns(); track col.key) {
+                <td [class]="tdClasses">{{ row[col.key] }}</td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+
+    </table>
+  }
+
+</div>
