@@ -1,0 +1,106 @@
+<div class="relative w-full">
+
+  @if (label()) {
+    <label
+      [for]="id()"
+      class="block text-sm font-medium text-gray-700 mb-1">
+      {{ label() }}
+    </label>
+  }
+
+  <!-- Trigger -->
+  <button
+    [id]="id()"
+    type="button"
+    [class]="triggerClasses"
+    [disabled]="disabled()"
+    [attr.aria-expanded]="isOpen()"
+    [attr.aria-haspopup]="'listbox'"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+    (keydown.space)="toggle()">
+
+    <span [class]="selectedLabel() ? 'text-gray-900' : 'text-gray-400'">
+      {{ selectedLabel() || placeholder() }}
+    </span>
+
+    <svg
+      class="w-4 h-4 text-gray-400 transition-transform"
+      [class.rotate-180]="isOpen()"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  @if (isOpen()) {
+    <div [class]="dropdownClasses" role="listbox">
+
+      <!-- Search -->
+      @if (searchable()) {
+        <div class="p-2 border-b border-gray-100">
+          <input
+            type="text"
+            class="w-full px-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search..."
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+            aria-label="Search options"/>
+        </div>
+      }
+
+      <!-- Options -->
+      <ul class="max-h-56 overflow-y-auto py-1">
+        @if (filteredOptions().length === 0) {
+          <li class="px-4 py-3 text-sm text-gray-400 text-center">
+            No options found
+          </li>
+        } @else {
+          @for (entry of groupedOptions() | keyvalue; track entry.key) {
+            @if (entry.key) {
+              <li class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                {{ entry.key }}
+              </li>
+            }
+            @for (option of entry.value; track option.value) {
+              <li
+                role="option"
+                [attr.aria-selected]="isSelected(option)"
+                [attr.aria-disabled]="option.disabled"
+                (click)="select(option)"
+                (keydown.enter)="select(option)"
+                tabindex="0"
+                class="px-4 py-2 text-sm cursor-pointer flex items-center justify-between transition-colors"
+                [class.bg-blue-50]="isSelected(option)"
+                [class.text-blue-700]="isSelected(option)"
+                [class.font-medium]="isSelected(option)"
+                [class.text-gray-700]="!isSelected(option)"
+                [class.hover:bg-gray-50]="!isSelected(option)"
+                [class.opacity-40]="option.disabled"
+                [class.cursor-not-allowed]="option.disabled">
+                {{ option.label }}
+                @if (isSelected(option)) {
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                }
+              </li>
+            }
+          }
+        }
+      </ul>
+
+    </div>
+  }
+
+  <!-- Error / Hint -->
+  @if (error()) {
+    <span class="text-xs text-red-500 mt-1 block" role="alert">{{ error() }}</span>
+  } @else if (hint()) {
+    <span class="text-xs text-gray-400 mt-1 block">{{ hint() }}</span>
+  }
+
+</div>
